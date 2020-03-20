@@ -1,0 +1,17 @@
+apiVersion: v1
+appVersion: "2.3.0"
+description: Federated Matrix Identity Server (formerly fork of kamax/mxisd)
+name: ma1sd
+version: 0.1.0
+keywords:
+  - synapse
+  - chat
+  - matrix
+  - riot
+home: https://github.com/ma1uta/ma1sd
+sources:
+  - https://github.com/ma1uta/ma1sd
+  - https://hub.docker.com/r/ma1uta/ma1sd
+maintainers:
+  - name: Gavin Mogan
+    email: helm@gavinmogan.com
