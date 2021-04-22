@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: ma1uta/ma1sd
-  tag: 2.3.0
+  tag: "{{ .Chart.AppVersion }}"
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -16,6 +16,8 @@ fullnameOverride: ""
 serviceAccount:
   # Specifies whether a service account should be created
   create: true
+  # Annotations to add to the service account
+  annotations: {}
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name:
@@ -24,6 +26,7 @@ podSecurityContext: {}
   # fsGroup: 2000
 
 securityContext: {}
+  # privileged: true
   # capabilities:
   #   drop:
   #   - ALL
@@ -32,8 +35,20 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
+  externalTrafficPolicy:
   type: ClusterIP
   port: 8090
+probes:
+  liveness:
+    failureThreshold: 5
+    periodSeconds: 10
+  readiness:
+    failureThreshold: 5
+    periodSeconds: 10
+  startup:
+    initialDelaySeconds: 5
+    failureThreshold: 30
+    periodSeconds: 10
 
 ingress:
   enabled: false
@@ -65,6 +80,10 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+podAnnotations: {}
+
+deploymentAnnotations: {}
 
 config:
   logging:
@@ -104,16 +123,19 @@ signing_key:
 
 ## Persist configuration to a persistent volume
 persistence:
-  ## database data Persistent Volume Storage Class
+  # persistence.enabled - Should disk persistence be enabled
+  enabled: false
   ## If defined, storageClassName: <storageClass>
   ## If unset, storageClassName: "", which disables dynamic provisioning
   ## If undefined (the default) or set to null, no storageClassName spec is
   ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
   ##   GKE, AWS & OpenStack)
   ##
-  enabled: false
   existingClaim:
   storageClassName:
   accessModes:
     - ReadWriteOnce
   size: 1Gi
+  ## persistence.skipuninstall -- Do not delete the pvc upon helm uninstall
+  skipuninstall: false
+
