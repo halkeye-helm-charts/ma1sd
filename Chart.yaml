@@ -1,9 +1,10 @@
+---
 apiVersion: v2
 type: application
 appVersion: "2.5.0"
 description: Federated Matrix Identity Server (formerly fork of kamax/mxisd)
 name: ma1sd
-version: 0.1.2
+version: 0.1.3
 keywords:
   - synapse
   - chat
@@ -18,10 +19,10 @@ maintainers:
     email: helm@gavinmogan.com
 annotations:
   artifacthub.io/changes: |
-    - Updating to 2.5.0
-    - Supporting newer ingress apiVersion
-    - Updating to my latest helm templates
-    - "Note: I'm  no longer running this so updates are less likely"
+    * Updating to 2.5.0
+    * Supporting newer ingress apiVersion
+    * Updating to my latest helm templates
+    * Note: I'm  no longer running this so updates are less likely
   artifacthub.io/containsSecurityUpdates: "false"
   artifacthub.io/images: |
     - name: ma1uta
